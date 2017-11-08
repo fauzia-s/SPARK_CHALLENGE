@@ -68,10 +68,7 @@ withSession = newSessionInd.select("v_id","ev_dt","ev_tm","epoch_ts","prev_row_e
 withSession.registerTempTable("withSession_tbl")
 visSessions_perTest=sqlContext.sql("select test_id,count(distinct(v_id,session_id)) from withSession_tbl group by test_id order by test_id")
 
-###Question2:Use Spark to determine how many visitor sessions were included in each test. A visitor session is defined as a series of clickstream events for a given visitor where there is no gap of 30 minutes of more. If there is a gap of at least 30 minutes, those events should be associated with a new session.
-
 ##View the data in .csv format:
-
 visSessions_perTest.write.format("csv").option("header","false").option("delimiter",",").save("SPARK_CHALLENGE/datasets/output/answer2_vis_session_per_test")
 
 
